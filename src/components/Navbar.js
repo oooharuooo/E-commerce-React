@@ -30,6 +30,7 @@ const Nav = () => {
             </li>
           })}
         </ul>
+        <CartButtons />
       </div>
     </NavContainer>
     )
