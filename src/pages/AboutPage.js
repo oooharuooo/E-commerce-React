@@ -4,7 +4,27 @@ import { PageHero } from '../components'
 import aboutImg from '../assets/hero-bcg.jpeg'
 
 const AboutPage = () => {
-  return <h4>about page</h4>
+  return (
+		<main>
+			<PageHero title="about" />
+			<Wrapper className="page section section-center">
+				<img src={aboutImg} alt="About" />
+				<article>
+					<div className="title">
+						<h2>About us</h2>
+						<div className="underline"></div>
+						<p>
+							ComfySloth is where you'll find an outstanding variety of
+							home furniture with exceptional quality. We're not
+							only able to provide and guide you towards the best furniture to
+							fulfill your specific needs, but we'll also provide custom
+							furnishing services and room planning support.
+						</p>
+					</div>
+				</article>
+			</Wrapper>
+		</main>
+	);
 }
 
 const Wrapper = styled.section`
