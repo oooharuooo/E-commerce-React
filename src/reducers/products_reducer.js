@@ -10,12 +10,31 @@ import {
 } from '../actions'
 
 const products_reducer = (state, action) => {
+  // Toggle SideBar
   if (action.type === SIDEBAR_OPEN) {
    return { ...state, isSidebarOpen: true };
   }
   if (action.type === SIDEBAR_CLOSE) {
 		return { ...state, isSidebarOpen: false };
-	}
+  }
+
+  //Featured products in Home Page
+  if (action.type === GET_PRODUCTS_BEGIN) { 
+    return { ...state,products_loading: true}
+  }
+  if (action.type === GET_PRODUCTS_SUCCESS) {
+    // filter the data with the featured result
+    const featured_products = action.payload.filter( product =>   product.featured === true);
+    return {
+      ...state,
+      products_loading: false,
+      products: action.payload,
+      featured_products
+    }
+  }
+  if (action.type === GET_PRODUCTS_ERROR) {
+    return { ...state, products_loading: false, products_error: true }
+  }
   // Throw error to prevent typo bug
   throw new Error(`No Matching "${action.type}" - action type`)
 }
