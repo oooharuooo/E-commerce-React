@@ -15,6 +15,25 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const SingleProductPage = () => {
+  const { id } = useParams();
+  const history = useHistory()
+  const { single_product_loading: loading, single_product_error: error, single_product: product, fetchSingleProduct } = useProductsContext()
+
+  // Return to homepage automatically after occur error
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => history.push("/"),3000)
+    }
+  },[error])
+
+  // Fetch single product
+  useEffect(() => {
+    fetchSingleProduct(`${url}${id}`)
+  },[id])
+
+  if (loading) return <Loading />
+  if (error) return <Error />
+
   return <h4>single product page</h4>
 }
 

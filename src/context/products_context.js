@@ -14,12 +14,15 @@ import {
 } from '../actions'
 
 const initialState = {
-  isSidebarOpen: false,
-  products_loading: false,
-  products_error: false,
-  products: [],
-  featured_products: [],
-}
+	isSidebarOpen: false,
+	products_loading: false,
+	products_error: false,
+	products: [],
+	featured_products: [],
+	single_product_loading: false,
+	single_product_error: false,
+  single_product: {},
+};
 
 const ProductsContext = React.createContext()
 
@@ -30,12 +33,12 @@ export const ProductsProvider = ({ children }) => {
 
   const closeSidebar = () => dispatch({ type: SIDEBAR_CLOSE })
   
+  // fetch products
   const fetchProducts = async (url) => {
     dispatch({ type: GET_PRODUCTS_BEGIN })
     // passing data to reducer if successfully loaded
     try {
       const {data: products} = await axios.get(url);
-      // const products = response.data
       dispatch({ type:GET_PRODUCTS_SUCCESS, payload: products})
     } catch (err) {
       dispatch({ type:GET_PRODUCTS_ERROR})
@@ -43,6 +46,18 @@ export const ProductsProvider = ({ children }) => {
     
   }
 
+  // Fetch single product
+  const fetchSingleProduct = async (url) => {
+		dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+		// passing single product data to reducer if successfully loaded
+		try {
+			const { data: singleProduct } = await axios.get(url);
+			dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: singleProduct });
+		} catch (err) {
+			dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
+		}
+	}
+  
   // Setup useEffect to fetch the data on both HomePage & ProductsPage
   useEffect(() => {
     fetchProducts(url)
@@ -53,14 +68,15 @@ export const ProductsProvider = ({ children }) => {
       value={{
         ...state,
         openSidebar,
-        closeSidebar
+        closeSidebar,
+        fetchSingleProduct
       }}
     >
       {children}
     </ProductsContext.Provider>
   )
 }
-// make sure use
+
 export const useProductsContext = () => {
   return useContext(ProductsContext)
 }
