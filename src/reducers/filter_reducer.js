@@ -10,15 +10,22 @@ import {
 } from "../actions";
 
 const filter_reducer = (state, action) => {
-  if (action.type === LOAD_PRODUCTS) {
-    // Use spread operator to replace also copy the old state
+	if (action.type === LOAD_PRODUCTS) {
+		// Use spread operator to replace also copy the old state
 		return {
 			...state,
 			all_products: [...action.payload],
 			filtered_products: [...action.payload],
 		};
 	}
-	
+
+	// Toggle between grid or list view
+	if (action.type === SET_GRIDVIEW) {
+		return { ...state, grid_view: true };
+	}
+	if (action.type === SET_LISTVIEW) {
+		return { ...state, grid_view: false };
+	}
 	// Throw error to prevent bug
 	throw new Error(`No Matching "${action.type}" - action type`);
 };
