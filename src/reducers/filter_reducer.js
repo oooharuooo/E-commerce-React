@@ -11,11 +11,14 @@ import {
 
 const filter_reducer = (state, action) => {
 	if (action.type === LOAD_PRODUCTS) {
+		let maxPrice = action.payload.map((p) => p.price);
+		maxPrice = Math.max(...maxPrice);
 		// Use spread operator to replace also copy the old state
 		return {
 			...state,
 			all_products: [...action.payload],
 			filtered_products: [...action.payload],
+			filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
 		};
 	}
 
@@ -51,6 +54,16 @@ const filter_reducer = (state, action) => {
 			});
 		}
 		return { ...state, filtered_products: tempProducts };
+	}
+
+	// Filter
+	if (action.type === UPDATE_FILTERS) {
+		// Setup name dynamically base on filter
+		const { name, value } = action.payload;
+		return { ...state, filters: { ...state.filters, [name]: value } };
+	}
+	if (action.type === FILTER_PRODUCTS) {
+		return { ...state}
 	}
 	// Throw error to prevent bug
 	throw new Error(`No Matching "${action.type}" - action type`);
