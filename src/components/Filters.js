@@ -11,7 +11,7 @@ const Filters = () => {
 			company,
 			category,
 			color,
-			mix_price,
+			min_price,
 			price,
 			max_price,
 			shipping,
@@ -117,6 +117,21 @@ const Filters = () => {
 						</div>
 					</div>
 					{/* end of color */}
+
+					{/* price */}
+					<div className="form-control">
+						<h5>price</h5>
+						<p className="price">{formatPrice(price)}</p>
+						<input
+							type="range"
+							name="price"
+							onChange={updateFilters}
+							min={min_price}
+							max={max_price}
+							value={price}
+						></input>
+					</div>
+					{/* end of price */}
 				</form>
 			</div>
 		</Wrapper>
