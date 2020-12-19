@@ -132,7 +132,23 @@ const Filters = () => {
 						></input>
 					</div>
 					{/* end of price */}
-				</form>
+
+					{/* shipping */}
+					<div className="form-control shipping">
+						<label htmlFor="shipping">free shipping</label>
+						<input
+							type="checkbox"
+							name="shipping"
+							id="shipping"
+							onChange={updateFilters}
+							checked={shipping}
+						/>
+					</div>
+					{/* end of shipping */}
+        </form>
+        <button type="button" className="clear-btn" onClick={clearFilters}>
+          clear Filters
+        </button>
 			</div>
 		</Wrapper>
 	);

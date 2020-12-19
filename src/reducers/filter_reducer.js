@@ -63,7 +63,21 @@ const filter_reducer = (state, action) => {
 		return { ...state, filters: { ...state.filters, [name]: value } };
 	}
 	if (action.type === FILTER_PRODUCTS) {
-		return { ...state}
+		return { ...state };
+	}
+	if (action.type === CLEAR_FILTERS) {
+		return {
+			...state,
+			filters: {
+				...state.filters,
+				text: "",
+				company: "all",
+				category: "all",
+				color: "all",
+				price: state.filters.max_price,
+				shipping: false,
+			},
+		};
 	}
 	// Throw error to prevent bug
 	throw new Error(`No Matching "${action.type}" - action type`);

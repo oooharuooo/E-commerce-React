@@ -22,7 +22,7 @@ const initialState = {
 		company: "all",
 		category: "all",
 		color: "all",
-		mix_price: 0,
+		min_price: 0,
 		price: 0,
 		max_price: 0,
 		shipping: false,
@@ -66,9 +66,15 @@ export const FilterProvider = ({ children }) => {
 		if (name === "price") {
 			value = parseFloat(value);
 		}
+		if (name === "shipping") {
+			value = e.target.checked
+		}
 		dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
 	};
-	const clearFilters = () => {};
+	const clearFilters = () => { 
+		dispatch({ type:CLEAR_FILTERS})
+	};
+	
 	return (
 		<FilterContext.Provider
 			value={{
