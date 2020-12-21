@@ -9,13 +9,21 @@ export const UserProvider = ({ children }) => {
 		logout,
 		user,
 		isLoading,
-  } = useAuth0();
-  
-  const [myUser, setMyUser] = useState(null)
-  
-  useEffect(() => {},[isAuthenticated])
+	} = useAuth0();
+
+	const [myUser, setMyUser] = useState(null);
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			setMyUser(user);
+		} else {
+			setMyUser(false);
+		}
+	}, [isAuthenticated]);
 	return (
-    <UserContext.Provider value={ {loginWithRedirect,logout,myUser}}>{children}</UserContext.Provider>
+		<UserContext.Provider value={{ loginWithRedirect, logout, myUser }}>
+			{children}
+		</UserContext.Provider>
 	);
 };
 // make sure use
