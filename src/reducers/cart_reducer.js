@@ -55,6 +55,7 @@ const cart_reducer = (state, action) => {
 	// Toggle amount
 	if (action.type === TOGGLE_CART_ITEM_AMOUNT) {
 		const { id, value } = action.payload;
+		// eslint-disable-next-line
 		const tempCart = state.cart.map((item) => {
 			if (item.id === id) {
 				if (value === "inc") {

@@ -28,12 +28,12 @@ const SingleProductPage = () => {
 	useEffect(() => {
 		if (error) {
 			setTimeout(() => history.push("/"), 3000);
-		}
+		} // eslint-disable-next-line
 	}, [error]);
 
 	// Fetch single product
 	useEffect(() => {
-		fetchSingleProduct(`${url}${id}`);
+		fetchSingleProduct(`${url}${id}`); // eslint-disable-next-line
 	}, [id]);
 
 	if (loading) return <Loading />;
