@@ -55,7 +55,6 @@ const cart_reducer = (state, action) => {
 	// Toggle amount
 	if (action.type === TOGGLE_CART_ITEM_AMOUNT) {
 		const { id, value } = action.payload;
-		// eslint-disable-next-line
 		const tempCart = state.cart.map((item) => {
 			if (item.id === id) {
 				if (value === "inc") {
@@ -85,7 +84,7 @@ const cart_reducer = (state, action) => {
 			(total, cartItem) => {
 				const { amount, price } = cartItem;
 				total.total_items += amount;
-				total.total_ += price * amount;
+				total.total_amount += price * amount;
 				return total;
 			},
 			{ total_items: 0, total_amount: 0 }
