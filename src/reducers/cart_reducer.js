@@ -10,13 +10,13 @@ const cart_reducer = (state, action) => {
 	if (action.type === ADD_TO_CART) {
 		const { id, color, amount, product } = action.payload;
 		const tempItem = state.cart.find((i) => i.id === id + color);
-    // If tempItem is true, iterate over it
+		// If tempItem is true, iterate over it
 		if (tempItem) {
-      const tempCart = state.cart.map((cartItem) => {
-        // check the Item if it equal to the id + color
+			const tempCart = state.cart.map((cartItem) => {
+				// check the Item if it equal to the id + color
 				if (cartItem.id === id + color) {
-          let newAmount = cartItem.amount + amount;
-          // return maximum items user can add
+					let newAmount = cartItem.amount + amount;
+					// return maximum items user can add
 					if (newAmount > cartItem.max) {
 						newAmount = cartItem.max;
 					}
@@ -41,7 +41,16 @@ const cart_reducer = (state, action) => {
 			return { ...state, cart: [...state.cart, newItem] };
 		}
 	}
+	// Remove Item
+	if (action.type === REMOVE_CART_ITEM) {
+		const tempCart = state.cart.filter((item) => item.id !== action.payload);
+		return { ...state, cart: tempCart };
+	}
 
+	// Clear cart
+	if (action.type === CLEAR_CART) {
+		return { ...state, cart: [] };
+	}
 	throw new Error(`No Matching "${action.type}" - action type`);
 };
 
