@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
 		} else {
 			setMyUser(false);
 		}
-	}, [isAuthenticated, user]);
+	}, [isAuthenticated]);
 	return (
 		<UserContext.Provider value={{ loginWithRedirect, logout, myUser }}>
 			{children}
