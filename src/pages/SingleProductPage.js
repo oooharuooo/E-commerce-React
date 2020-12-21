@@ -29,12 +29,12 @@ const SingleProductPage = () => {
 		if (error) {
 			setTimeout(() => history.push("/"), 3000);
 		}
-	}, [error]);
+	},);
 
 	// Fetch single product
 	useEffect(() => {
 		fetchSingleProduct(`${url}${id}`);
-	}, [id]);
+	},);
 
 	if (loading) return <Loading />;
 	if (error) return <Error />;
