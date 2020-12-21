@@ -1,14 +1,48 @@
 import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  COUNT_CART_TOTALS,
-  REMOVE_CART_ITEM,
-  TOGGLE_CART_ITEM_AMOUNT,
-} from '../actions'
+	ADD_TO_CART,
+	CLEAR_CART,
+	COUNT_CART_TOTALS,
+	REMOVE_CART_ITEM,
+	TOGGLE_CART_ITEM_AMOUNT,
+} from "../actions";
 
 const cart_reducer = (state, action) => {
-  return state
-  throw new Error(`No Matching "${action.type}" - action type`)
-}
+	if (action.type === ADD_TO_CART) {
+		const { id, color, amount, product } = action.payload;
+		const tempItem = state.cart.find((i) => i.id === id + color);
+    // If tempItem is true, iterate over it
+		if (tempItem) {
+      const tempCart = state.cart.map((cartItem) => {
+        // check the Item if it equal to the id + color
+				if (cartItem.id === id + color) {
+          let newAmount = cartItem.amount + amount;
+          // return maximum items user can add
+					if (newAmount > cartItem.max) {
+						newAmount = cartItem.max;
+					}
+					return { ...cartItem, amount: newAmount };
+				} else {
+					return cartItem;
+				}
+			});
+			return { ...state, cart: tempCart };
+		}
+		// if the item is not in the cart, create a newItem Object
+		else {
+			const newItem = {
+				id: id + color,
+				name: product.name,
+				color,
+				amount,
+				image: product.images[0].url,
+				price: product.price,
+				max: product.stock,
+			};
+			return { ...state, cart: [...state.cart, newItem] };
+		}
+	}
 
-export default cart_reducer
+	throw new Error(`No Matching "${action.type}" - action type`);
+};
+
+export default cart_reducer;
