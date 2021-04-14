@@ -6,7 +6,7 @@ const CheckoutPage = () => {
     <PageHero title="checkout" />
     <Wrapper className="page">
       <h1>Checkout Page</h1>
-      <p>For privacy and security purposes, this page will be empty</p>
+      <p>Work in progress</p>
     </Wrapper>
   </main>
 }
